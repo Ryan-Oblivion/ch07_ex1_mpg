@@ -5,51 +5,70 @@
 
 using namespace std;
 
+// declare the mpg function
+//double miles;
+//double gallons;
+double calculate_mpg(double, double);
+
+void display_file_data();
+
+// define variables
+double miles;
+double gallons;
+double mpg;
+double total_miles;
+double total_gallons;
+double avg_mpg;
+
+
 int main()
 {
 	// print name of program
 	cout << "Miles Per Gallon\n\n";
 
-	// define variables
-	double miles;
-	double gallons;
-	double mpg;
-	double total_miles;
-	double total_gallons;
-	double avg_mpg;
+//	// define variables
+//	double miles;
+//	double gallons;
+//	double mpg;
+//	double total_miles;
+//	double total_gallons;
+//	double avg_mpg;
 
-    string filename = "trips.txt";
+//    string filename = "trips.txt";
     
 	// print existing file data
 	ifstream infile;
-	infile.open(filename);
-	if (infile) {
-		total_miles = 0;
-		total_gallons = 0;
-		cout << setw(8) << "Miles" << setw(12) << "Gallons" << setw(12) << "MPG" << endl;
-		while (infile >> miles >> gallons) {
-			total_miles += miles;
-			total_gallons += gallons;
-			mpg = miles / gallons;
-			mpg = round(mpg * 100) / 100;
-			cout << fixed << setprecision(1);
-			cout << setw(8) << miles << setw(12) << gallons;
-			cout << fixed << setprecision(2);
-			cout << setw(12) << mpg << endl;
-		}
-		infile.close();
-
-		avg_mpg = total_miles / total_gallons;
-
-		cout << fixed << setprecision(2) << showpoint << endl;
-		cout << left << setw(15) << "Total miles:"
-			<< right << setw(10) << total_miles << endl;
-		cout << left << setw(15) << "Total gallons:"
-			<< right << setw(10) << total_gallons << endl;
-		cout << left << setw(15) << "Average MPG:"
-			<< right << setw(10) << avg_mpg << endl;
-		cout << endl;
-	}
+    
+    display_file_data();
+//	infile.open(filename);
+//	if (infile) {
+//		total_miles = 0;
+//		total_gallons = 0;
+//		cout << setw(8) << "Miles" << setw(12) << "Gallons" << setw(12) << "MPG" << endl;
+//		while (infile >> miles >> gallons) {
+//			total_miles += miles;
+//			total_gallons += gallons;
+//			mpg = calculate_mpg(miles, gallons);
+//			//mpg = round(mpg * 100) / 100;
+//			cout << fixed << setprecision(1);
+//			cout << setw(8) << miles << setw(12) << gallons;
+//			cout << fixed << setprecision(2);
+//			cout << setw(12) << mpg << endl;
+//		}
+//		infile.close();
+//
+//		//avg_mpg = total_miles / total_gallons;
+//        avg_mpg = calculate_mpg(total_miles, total_gallons);
+//
+//		cout << fixed << setprecision(2) << showpoint << endl;
+//		cout << left << setw(15) << "Total miles:"
+//			<< right << setw(10) << total_miles << endl;
+//		cout << left << setw(15) << "Total gallons:"
+//			<< right << setw(10) << total_gallons << endl;
+//		cout << left << setw(15) << "Average MPG:"
+//			<< right << setw(10) << avg_mpg << endl;
+//		cout << endl;
+//	}
 
 	char another_entry = 'y';
 	while (tolower(another_entry) == 'y') {
@@ -86,8 +105,9 @@ int main()
 		}
 
 		// calculate and display miles per gallon
-		mpg = miles / gallons;
-		mpg = round(mpg * 100) / 100;
+		//mpg = miles / gallons;
+        mpg = calculate_mpg(miles,gallons);
+		//mpg = round(mpg * 100) / 100;
 		cout << "Miles per gallon:          " << mpg << endl << endl;
 
 		// write entry to file
@@ -106,8 +126,9 @@ int main()
 			while (infile >> miles >> gallons) {
 				total_miles += miles;
 				total_gallons += gallons;
-				mpg = miles / gallons;
-				mpg = round(mpg * 100) / 100;
+				//mpg = miles / gallons;
+                mpg = calculate_mpg(miles, gallons);
+				//mpg = round(mpg * 100) / 100;
 				cout << fixed << setprecision(1);
 				cout << setw(8) << miles << setw(12) << gallons;
 				cout << fixed << setprecision(2);
@@ -115,7 +136,8 @@ int main()
 			}
 			infile.close();
 
-			avg_mpg = total_miles / total_gallons;
+			//avg_mpg = total_miles / total_gallons;
+            avg_mpg = calculate_mpg(total_miles, total_gallons);
 
 			cout << fixed << setprecision(2) << showpoint << endl;
 			cout << left << setw(15) << "Total miles:"
@@ -136,4 +158,53 @@ int main()
 	}
 
 	cout << "Bye!\n\n";
+}
+
+// I want to define a function for mpg
+double calculate_mpg(double miles, double gallons) {
+    
+    double mpg;
+    
+    mpg = round(miles/gallons * 100)/100 ;
+    
+    return mpg;
+}
+
+void display_file_data() {
+    
+    string filename = "trips.txt";
+    
+    // print existing file data
+    ifstream infile;
+    infile.open(filename);
+    if (infile) {
+        total_miles = 0;
+        total_gallons = 0;
+        cout << setw(8) << "Miles" << setw(12) << "Gallons" << setw(12) << "MPG" << endl;
+        while (infile >> miles >> gallons) {
+            total_miles += miles;
+            total_gallons += gallons;
+            mpg = calculate_mpg(miles, gallons);
+            //mpg = round(mpg * 100) / 100;
+            cout << fixed << setprecision(1);
+            cout << setw(8) << miles << setw(12) << gallons;
+            cout << fixed << setprecision(2);
+            cout << setw(12) << mpg << endl;
+        }
+        infile.close();
+
+        //avg_mpg = total_miles / total_gallons;
+        avg_mpg = calculate_mpg(total_miles, total_gallons);
+
+        cout << fixed << setprecision(2) << showpoint << endl;
+        cout << left << setw(15) << "Total miles:"
+            << right << setw(10) << total_miles << endl;
+        cout << left << setw(15) << "Total gallons:"
+            << right << setw(10) << total_gallons << endl;
+        cout << left << setw(15) << "Average MPG:"
+            << right << setw(10) << avg_mpg << endl;
+        cout << endl;
+    }
+    
+    
 }
