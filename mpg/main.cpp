@@ -8,11 +8,11 @@ using namespace std;
 // declare the mpg function
 //double miles;
 //double gallons;
-double calculate_mpg(double, double);
+double calculate_mpg(const double &miles, const double &gallons);
 
 void display_file_data();
 
-// define variables
+//define variables
 double miles;
 double gallons;
 double mpg;
@@ -26,7 +26,7 @@ int main()
 	// print name of program
 	cout << "Miles Per Gallon\n\n";
 
-//	// define variables
+	// define variables
 //	double miles;
 //	double gallons;
 //	double mpg;
@@ -161,7 +161,7 @@ int main()
 }
 
 // I want to define a function for mpg
-double calculate_mpg(double miles, double gallons) {
+double calculate_mpg(const double &miles, const double &gallons) {
     
     double mpg;
     
